@@ -1,6 +1,6 @@
-"use client"; // (1) use clientを指定
+"use client";
 
-import { useState } from "react"; // 追加
+import { useState } from "react";
 import { fetchImage } from "./fetch-image";
 import styles from "./page.module.css"; // 追加
 
@@ -9,10 +9,8 @@ type CatImageProps = {
 };
 
 export function CatImage({ url }: CatImageProps) {
-    // (2) useStateを使って状態を管理
-    const [imageUrl, setImageUrl] = useState(url);
+    const [imageUrl, setImageUrl] = useState<string>(url);
 
-    // (3) 画像を取得する関数を定義
     const refreshImage = async () => {
         setImageUrl(""); // 初期化
         const image = await fetchImage();
@@ -21,15 +19,12 @@ export function CatImage({ url }: CatImageProps) {
 
     return (
         <div className={styles.page}>
-            {/* (4) ボタンの表示 */}
             <button onClick={refreshImage} className={styles.button}>
                 他のにゃんこも見る
             </button>
             <div className={styles.frame}>
-                {/* (5) 画像の表示 */}
                 {imageUrl && <img src={imageUrl} className={styles.img} />}
             </div>
-
         </div>
     );
 }
